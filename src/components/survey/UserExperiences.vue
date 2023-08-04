@@ -1,37 +1,45 @@
 <template>
   <section>
-    <base-card>
+    <BaseCard>
       <h2>Submitted Experiences</h2>
       <div>
-        <base-button>Load Submitted Experiences</base-button>
+        <BaseButton @click="loadData">Load Submitted Experiences</BaseButton>
       </div>
       <ul>
-        <survey-result
+        <SurveyResult
           v-for="result in results"
           :key="result.id"
           :name="result.name"
           :rating="result.rating"
-        ></survey-result>
+        ></SurveyResult>
       </ul>
-    </base-card>
+    </BaseCard>
   </section>
 </template>
 
 <script>
-import SurveyResult from './SurveyResult.vue';
+  import SurveyResult from './SurveyResult.vue';
 
-export default {
-  props: ['results'],
-  components: {
-    SurveyResult,
-  },
-};
+  export default {
+    name: 'UserExperiences',
+    props: ['results'],
+    emits: ['loadData'],
+    components: {
+      SurveyResult,
+    },
+
+    methods: {
+      loadData() {
+        this.$emit('loadData')
+      },
+    }
+  };
 </script>
 
 <style scoped>
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
 </style>

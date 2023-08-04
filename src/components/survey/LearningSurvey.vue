@@ -1,6 +1,6 @@
 <template>
   <section>
-    <base-card>
+    <BaseCard>
       <h2>How was you learning experience?</h2>
       <form @submit.prevent="submitSurvey">
         <div class="form-control">
@@ -30,41 +30,46 @@
           v-if="invalidInput"
         >One or more input fields are invalid. Please check your provided data.</p>
         <div>
-          <base-button>Submit</base-button>
+          <BaseButton>Submit</BaseButton>
         </div>
       </form>
-    </base-card>
+    </BaseCard>
   </section>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      enteredName: '',
-      chosenRating: null,
-      invalidInput: false,
-    };
-  },
-  emits: ['survey-submit'],
-  methods: {
-    submitSurvey() {
-      if (this.enteredName === '' || !this.chosenRating) {
-        this.invalidInput = true;
-        return;
-      }
-      this.invalidInput = false;
+  import { addSurveyData } from '../../requests'
 
-      this.$emit('survey-submit', {
-        userName: this.enteredName,
-        rating: this.chosenRating,
-      });
+  export default {
+    name: 'LearningSurvey',
 
-      this.enteredName = '';
-      this.chosenRating = null;
+    data() {
+      return {
+        enteredName: '',
+        chosenRating: null,
+        invalidInput: false,
+      };
     },
-  },
-};
+
+    methods: {
+      submitSurvey() {
+        if (this.enteredName === '' || !this.chosenRating) {
+          this.invalidInput = true;
+          return;
+        }
+
+        this.invalidInput = false;
+
+        addSurveyData({
+          name: this.enteredName,
+          rating: this.chosenRating,
+        })
+
+        this.enteredName = '';
+        this.chosenRating = null;
+      },
+    },
+  };
 </script>
 
 <style scoped>

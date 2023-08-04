@@ -8,42 +8,43 @@
 </template>
 
 <script>
-export default {
-  props: ['name', 'rating'],
-  computed: {
-    ratingClass() {
-      return 'highlight rating--' + this.rating;
+  export default {
+    name: 'SurveyResult',
+    props: ['name', 'rating'],
+    computed: {
+      ratingClass() {
+        return 'highlight rating--' + this.rating;
+      },
     },
-  },
-};
+  };
 </script>
 
 <style scoped>
-li {
-  margin: 1rem 0;
-  border: 1px solid #ccc;
-  padding: 1rem;
-}
+  li {
+    margin: 1rem 0;
+    border: 1px solid #ccc;
+    padding: 1rem;
+  }
 
-h3,
-p {
-  font-size: 1rem;
-  margin: 0.5rem 0;
-}
+  h3,
+  p {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+  }
 
-.highlight {
-  font-weight: bold;
-}
+  .highlight {
+    font-weight: bold;
+  }
 
-.rating--poor {
-  color: #b80056;
-}
+  .rating--poor {
+    color: #b80056;
+  }
 
-.rating--average {
-  color: #330075;
-}
+  .rating--average {
+    color: #330075;
+  }
 
-.rating--great {
-  color: #008327;
-}
+  .rating--great {
+    color: #008327;
+  }
 </style>
