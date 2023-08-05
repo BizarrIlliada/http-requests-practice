@@ -6,7 +6,10 @@ export async function getSurveysData() {
   const surveys = [];
 
   try {
-    const responseData = (await axios.get(SURVEYS_URL)).data;
+    const response = await axios.get(SURVEYS_URL);
+    console.log(response);
+
+    const responseData = response.data
     
     for (const key in responseData) {
       surveys.push({
@@ -18,14 +21,14 @@ export async function getSurveysData() {
   
     return surveys;
   } catch (error) {
-    throw new Error(error);
+    return error.message;
   }
 }
 
-export function addSurveyData(payload) {
+export async function addSurveyData(payload) {
   try {
-    axios.post(SURVEYS_URL, payload);
+    await axios.post(SURVEYS_URL, payload);
   } catch (error) {
-    throw new Error(error);
+    return error.message;
   }
 }

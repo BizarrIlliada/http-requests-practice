@@ -28,7 +28,14 @@
         </div>
         <p
           v-if="invalidInput"
-        >One or more input fields are invalid. Please check your provided data.</p>
+        >
+          One or more input fields are invalid. Please check your provided data.
+        </p>
+        <p
+          v-if="errorMessage"
+        >
+          Something went wrong! - {{ errorMessage }}
+        </p>
         <div>
           <BaseButton>Submit</BaseButton>
         </div>
@@ -48,11 +55,12 @@
         enteredName: '',
         chosenRating: null,
         invalidInput: false,
+        errorMessage: '',
       };
     },
 
     methods: {
-      submitSurvey() {
+      async submitSurvey() {
         if (this.enteredName === '' || !this.chosenRating) {
           this.invalidInput = true;
           return;
@@ -60,7 +68,7 @@
 
         this.invalidInput = false;
 
-        addSurveyData({
+        this.errorMessage = await addSurveyData({
           name: this.enteredName,
           rating: this.chosenRating,
         })
